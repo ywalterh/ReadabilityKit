@@ -61,6 +61,7 @@ public extension Readability {
 						description: .none,
 						topImage: url.absoluteString,
 						text: .none,
+                        textWithoutFormatting: .none,
 						topVideo: .none,
                         keywords: .none, datePublished: .none)
 
