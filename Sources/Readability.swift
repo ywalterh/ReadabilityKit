@@ -31,6 +31,7 @@ public struct ReadabilityData {
 	public let description: String?
 	public let topImage: String?
 	public let text: String?
+    public let textWithoutFormatting: String?
 	public let topVideo: String?
 	public let keywords: [String]?
     public let datePublished: String?
@@ -537,6 +538,7 @@ open class Readability {
 			description: self.description(),
 			topImage: self.topImage(),
 			text: self.text(),
+            textWithoutFormatting: self.textWithoutFormatting(),
 			topVideo: self.topVideo(),
             keywords: self.keywords(),
             datePublished: self.convertDateToFormat()
@@ -649,6 +651,14 @@ open class Readability {
 
 		return extractFullText(maxWeightNode)?.trim()
 	}
+
+    func textWithoutFormatting() -> String? {
+        guard let maxWeightNode = maxWeightNode else {
+            return .none
+        }
+
+        return clearNodeContent(maxWeightNode)
+    }
 
 	func topImage() -> String?
 	{
