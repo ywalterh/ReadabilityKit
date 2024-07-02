@@ -422,6 +422,26 @@ open class Readability {
 	fileprivate func isAdImage(_ url: String) -> Bool {
 		return calculateNumberOfAppearance(url, substring: "ad") > 2
 	}
+    
+    fileprivate func clearNodeRawContent(_ node: JiNode) -> String? {
+        guard var strValue = node.rawContent else {
+            return .none
+        }
+
+        let nodesToRemove = [
+            node.xPath("//script"),
+            node.xPath("//noscript"),
+            node.xPath("//style")].flatMap { $0 }
+        nodesToRemove.forEach { nodeToRemove in
+            guard let contentToRemove = nodeToRemove.rawContent else {
+                return
+            }
+
+            strValue = strValue.replacingOccurrences(of: contentToRemove, with: "")
+        }
+
+        return strValue
+    }
 
 	fileprivate func clearNodeContent(_ node: JiNode) -> String? {
 		guard var strValue = node.content else {
@@ -657,7 +677,7 @@ open class Readability {
             return .none
         }
 
-        return maxWeightNode.rawContent
+        return clearNodeRawContent(maxWeightNode)
     }
 
 	func topImage() -> String?
