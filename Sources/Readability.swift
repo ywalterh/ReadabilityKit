@@ -657,7 +657,7 @@ open class Readability {
             return .none
         }
 
-        return clearNodeContent(maxWeightNode)
+        return maxWeightNode.rawContent
     }
 
 	func topImage() -> String?
