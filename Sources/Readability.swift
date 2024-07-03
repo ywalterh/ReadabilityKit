@@ -431,7 +431,14 @@ open class Readability {
         let nodesToRemove = [
             node.xPath("//script"),
             node.xPath("//noscript"),
-            node.xPath("//style")].flatMap { $0 }
+            node.xPath("//style"),
+            node.xPath("//iframe"),
+            node.xPath("//input"),
+            node.xPath("//select"),
+            node.xPath("//button"),
+            node.xPath("//table"),
+            node.xPath("//ul"),
+        ].flatMap { $0 }
         nodesToRemove.forEach { nodeToRemove in
             guard let contentToRemove = nodeToRemove.rawContent else {
                 return
